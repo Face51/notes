@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='background.jpg') }}" class="background-image" alt="Background Image">
+    <img src="{{ url_for('static', filename='wave.jpg') }}" class="wave-overlay" alt="Wave Image">
+    
+    <div class="welcome-page">
+        <h1>Welcome</h1>
+        <div class="subtext">to my page</div>
+        <p>Here you can get started by uploading and viewing PDF files.</p>
+        <a href="{{ url_for('upload_file') }}" class="get-started-button">Get Started</a>
+    </div>
+</body>
+</html>
