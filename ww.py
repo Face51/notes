@@ -1,3 +1,4 @@
+#simple program yo learn mysql
 import random
 
 # Define the questions and correct answers
