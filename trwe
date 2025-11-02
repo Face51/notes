@@ -1,1 +1,84 @@
+import mysql.connector
+
+# Step 1: Connect to MySQL
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="yourpassword",   # change this to your MySQL password
+    database="timetable_db"
+)
+
+cur = conn.cursor()
+
+# Step 2: Functions
+def add_class():
+    day = input("Enter day: ")
+    time = input("Enter time: ")
+    subject = input("Enter subject: ")
+    teacher = input("Enter teacher name: ")
+    class_name = input("Enter class name: ")
+    cur.execute("INSERT INTO timetable(day, time, subject, teacher, class_name) VALUES (%s, %s, %s, %s, %s)",
+                (day, time, subject, teacher, class_name))
+    conn.commit()
+    print("✅ Class added successfully!\n")
+
+def view_timetable():
+    cur.execute("SELECT * FROM timetable")
+    rows = cur.fetchall()
+    print("\n------ ONLINE CLASS TIMETABLE ------")
+    for row in rows:
+        print(f"ID: {row[0]} | Day: {row[1]} | Time: {row[2]} | Subject: {row[3]} | Teacher: {row[4]} | Class: {row[5]}")
+    print("------------------------------------\n")
+
+def search_by_day():
+    day = input("Enter day to search: ")
+    cur.execute("SELECT * FROM timetable WHERE day = %s", (day,))
+    rows = cur.fetchall()
+    if rows:
+        print(f"\nTimetable for {day}:")
+        for row in rows:
+            print(f"Time: {row[2]}, Subject: {row[3]}, Teacher: {row[4]}, Class: {row[5]}")
+    else:
+        print("❌ No records found for this day.\n")
+
+def update_class():
+    id = input("Enter ID of the record to update: ")
+    new_time = input("Enter new time: ")
+    new_teacher = input("Enter new teacher name: ")
+    cur.execute("UPDATE timetable SET time = %s, teacher = %s WHERE id = %s", (new_time, new_teacher, id))
+    conn.commit()
+    print("✅ Record updated successfully!\n")
+
+def delete_class():
+    id = input("Enter ID of the record to delete: ")
+    cur.execute("DELETE FROM timetable WHERE id = %s", (id,))
+    conn.commit()
+    print("🗑️ Record deleted successfully!\n")
+
+# Step 3: Menu
+while True:
+    print("\n===== ONLINE CLASS TIMETABLE MENU =====")
+    print("1. Add Class")
+    print("2. View Timetable")
+    print("3. Search by Day")
+    print("4. Update Class")
+    print("5. Delete Class")
+    print("6. Exit")
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        add_class()
+    elif choice == '2':
+        view_timetable()
+    elif choice == '3':
+        search_by_day()
+    elif choice == '4':
+        update_class()
+    elif choice == '5':
+        delete_class()
+    elif choice == '6':
+        print("Exiting... Thank you!")
+        break
+    else:
+        print("❌ Invalid choice! Please try again.")
 
