@@ -1,0 +1,264 @@
+class Student {
+    String name;
+
+    Student(String name) {
+        this.name = name;
+    }
+
+    void display() {
+        System.out.println("Name in uppercase: " + name.toUpperCase());
+        System.out.println("Name in lowercase: " + name.toLowerCase());
+        System.out.println("Total characters: " + name.length());
+
+        System.out.print("Initials: ");
+        String[] words = name.trim().split(" ");
+
+        for (String word : words) {
+            if (word.length() > 0) {
+                System.out.print(Character.toUpperCase(word.charAt(0)) + ".");
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student("Aditya Kumar");
+        s.display();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class Animal {
+    abstract void sound();
+}
+
+class Cat extends Animal {
+    void sound() {
+        System.out.println("Cat says: Meow");
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog says: Bark");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a;
+
+        a = new Cat();
+        a.sound();
+
+        a = new Dog();
+        a.sound();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "madam";
+
+        String rev = "";
+
+        for (int i = str.length() - 1; i >= 0; i--) {
+            rev = rev + str.charAt(i);
+        }
+
+        if (str.equalsIgnoreCase(rev)) {
+            System.out.println(str + " is a palindrome");
+        } else {
+            System.out.println(str + " is not a palindrome");
+        }
+
+        if (str.length() > 2) {
+            String deleted = str.substring(1, str.length() - 1);
+            System.out.println("After deleting first and last letter: " + deleted);
+        } else {
+            System.out.println("String is too short to delete first and last letter");
+        }
+
+        String constant = "BCS2ndSem";
+        String changed = constant.replace("BCS", "BBA")
+                                 .replace("2nd", "4th")
+                                 .replace("Sem", "sem");
+
+        System.out.println("Original string: " + constant);
+        System.out.println("Changed string: " + changed);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Box {
+    double width;
+    double height;
+    double depth;
+
+    Box(double width, double height, double depth) {
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+    }
+
+    double volume() {
+        return width * height * depth;
+    }
+}
+
+class BoxWeight extends Box {
+    double weight;
+
+    BoxWeight(double width, double height, double depth, double weight) {
+        super(width, height, depth);
+        this.weight = weight;
+    }
+
+    void displayWeight() {
+        System.out.println("Weight: " + weight);
+    }
+}
+
+class Shipment extends BoxWeight {
+    double cost;
+
+    Shipment(double width, double height, double depth, double weight, double cost) {
+        super(width, height, depth, weight);
+        this.cost = cost;
+    }
+
+    void displayDetails() {
+        System.out.println("Volume: " + volume());
+        System.out.println("Weight: " + weight);
+        System.out.println("Shipment cost: " + cost);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Shipment s = new Shipment(10, 5, 2, 20, 150);
+
+        s.displayDetails();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter a sentence:");
+        String sentence = sc.nextLine();
+
+        int characters = sentence.length();
+        int vowels = 0;
+        int consonants = 0;
+
+        String withoutDigits = "";
+
+        for (int i = 0; i < sentence.length(); i++) {
+            char ch = sentence.charAt(i);
+
+            if (!Character.isDigit(ch)) {
+                withoutDigits = withoutDigits + ch;
+            }
+
+            if (Character.isLetter(ch)) {
+                char lower = Character.toLowerCase(ch);
+
+                if (lower == 'a' || lower == 'e' || lower == 'i' || lower == 'o' || lower == 'u') {
+                    vowels++;
+                } else {
+                    consonants++;
+                }
+            }
+        }
+
+        System.out.println("Total number of characters: " + characters);
+        System.out.println("Number of vowels: " + vowels);
+        System.out.println("Number of consonants: " + consonants);
+        System.out.println("Sentence after deleting digits: " + withoutDigits);
+
+        sc.close();
+    }
+}
+
